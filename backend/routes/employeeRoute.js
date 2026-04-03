@@ -1,9 +1,11 @@
 import express from "express"
-import { getAllEmployees } from "../controllers/employeeController.js"
+import { createEmployee, getAllEmployees, getEmployee } from "../controllers/employeeController.js"
 
 const employeeRoutes = express.Router()
 
+employeeRoutes.post("/", createEmployee)
 employeeRoutes.get("/", getAllEmployees)
+employeeRoutes.get("/:id", getEmployee)
 
 
 export default employeeRoutes
