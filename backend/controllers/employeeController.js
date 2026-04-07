@@ -21,20 +21,60 @@ export const createEmployee = async (req, res) => {
 }
 
 export const getAllEmployees = async (req, res) => {
-  return res.status(200).json("Working API endpoint")
+  try {
+    const employees = await sql `SELECT * FROM employees`;
+    return res.status(200).json({success: true, data: employees})
+  }
+  catch (error) {
+    return res.status(404).json({success: false, message: error.message})
+  }
 
 }
 
 export const getEmployee = async (req, res) => {
-  return res.status(200).json("Working API endpoint")
+  const {id} = req.params;
+  try {
+    const employee = await sql `SELECT * FROM employees WHERE id = ${id}`;
+    if (employee.length === 0) {
+      return res.status(404).json({success: false, error: "Employee not found!"})
+    }
+    return res.status(200).json({success: true, data: employee})
+
+  } catch (error) {
+    return res.status(404).json({success: false, message: error.message})
+  }
+
 
 }
 export const updateEmployee = async (req, res) => {
-  return res.status(200).json("Working API endpoint")
+  const {id} = req.params;
+  const {name, email, age, role, salary} = req.body
+  if (!id || !name || !email || !age || !role || !salary) {
+    return res.status(404).json({success: false, error: "Missing params!" })
+  }
+  try { 
+    const updated = await sql 
+    `UPDATE EMPLOYEE SET name = ${name}, email = ${email}, age = ${age}, role = ${role}, salary = ${salary}
+    WHERE id = ${id}`;
+    return res.status(200).json({success: true, data: updated})
+
+  } catch (error) {
+    return res.status(404).json({success: false, message: error.message})
+  }
+
+
 
 }
 
 export const deleteEmployee = async (req, res) => {
-  return res.status(200).json("Working API endpoint")
-
+  const {id} = req.params;
+  if (!id) {
+    return res.status(404).json({success: false, error: "Missing params!" })
+  }
+  try {
+    const deleted = await sql `DELETE FROM employees WHERE id = ${id}`;
+    return res.status(200).json({success: true, data: deleted})
+  } catch (error) {
+    return res.status(404).json({success: false, message: error.message})
+  }
 }
