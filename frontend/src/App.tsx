@@ -39,6 +39,9 @@ const App = () => {
           <th className="p-2">id</th>
           <th className="p-2">name</th>
           <th className="p-2">email</th>
+          <th className="p-2">age</th>
+          <th className="p-2">role</th>
+          <th className="p-2">salary</th>
         </tr>
       </thead>
       <tbody>
@@ -47,6 +50,12 @@ const App = () => {
               <td className="p-2">{item.id}</td>
               <td className="p-2">{item.name}</td>
               <td className="p-2">{item.email}</td>
+              <td className="p-2">{item.age}</td>      
+              <td className="p-2">{item.role}</td>
+              <td className="p-2">{item.salary}</td>
+              <td><button className="bg-blue-400 p-1 px-3 ml-4 mr-5 ">Edit</button></td>
+              <td><button className="bg-red-400 p-1">Delete</button></td>
+
             </tr>
           ))}
       </tbody>
